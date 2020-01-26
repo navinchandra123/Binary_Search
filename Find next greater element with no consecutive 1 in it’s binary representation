@@ -1,0 +1,57 @@
+// https://www.geeksforgeeks.org/find-next-greater-element-with-no-consecutive-1-in-its-binary-representation/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define inf 100000000000000000
+#define ll long long int
+#define pb push_back
+#define f first
+#define s second
+#define mod 1000000007
+#define fast ios_base::sync_with_stdio(false),cin.tie(NULL),cout.tie(NULL)
+void mahakal(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt","r",stdin);
+	freopen("output.txt","w",stdout);
+	freopen("error.txt","w",stderr);
+	#endif
+}
+vector<ll> vec;
+
+void precomputation(){
+	for(ll i=1 ;i<=100000;i++){
+		ll pre_last_bit=0;
+		ll no = i ;
+		bool ok =1;
+		while(no>0){
+			if(no%2==1 && pre_last_bit==1){
+				ok=0;
+				break;
+			}
+			pre_last_bit=no%2;
+			no=no/2;
+		}
+		if(ok){
+			vec.pb(i);
+		}
+	}
+}
+
+int main(){
+	mahakal();fast;
+	precomputation();
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n ;
+		cin>>n;
+		ll arr[n];
+		for(ll i=0;i<n;i++){
+			cin>>arr[i];
+			ll ps=upper_bound(vec.begin(),vec.end(),arr[i])-vec.begin();
+			cout<<vec[ps]<<endl;
+		}
+	}
+
+	return 0;
+}
