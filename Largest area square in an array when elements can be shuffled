@@ -1,0 +1,61 @@
+// https://www.geeksforgeeks.org/largest-area-square-in-an-array-when-elements-can-be-shuffled/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define inf 100000000000000000
+#define ll long long int
+#define pb push_back
+#define f first
+#define s second
+#define mod 1000000007
+#define fast ios_base::sync_with_stdio(false),cin.tie(NULL),cout.tie(NULL)
+void mahakal(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt","r",stdin);
+	freopen("output.txt","w",stdout);
+	freopen("error.txt","w",stderr);
+	#endif
+}
+bool check( ll* arr , ll  n , ll mid){
+	ll cnt=0;
+	for(ll i=0;i<n;i++){
+		if(arr[i]>=mid){
+			cnt++;
+		}
+		if(cnt>=mid){
+			return true;
+		}
+	}
+	return cnt>=mid ? true : false;
+}
+
+int main(){
+	mahakal();fast;
+
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n ;
+		cin>>n;
+		ll arr[n];
+		for(ll i=0;i<n;i++){
+			cin>>arr[i];
+		}
+		ll l =0 ,r=n;
+		ll ans=0;
+		while(l<=r){
+			ll mid = (l+r)/2;
+			bool ps = check(arr , n , mid);
+			if(ps){
+				ans = mid;
+				l=mid+1;
+			}
+			else{
+				r=mid-1;
+			}
+		}
+		cout<<ans*ans<<endl;
+	}
+
+	return 0;
+}
