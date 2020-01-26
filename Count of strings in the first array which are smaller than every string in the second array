@@ -1,0 +1,58 @@
+// https://www.geeksforgeeks.org/count-of-strings-in-the-first-array-which-are-smaller-than-every-string-in-the-second-array/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define inf 100000000000000000
+#define ll long long int
+#define pb push_back
+#define f first
+#define s second
+#define mod 1000000007
+#define fast ios_base::sync_with_stdio(false),cin.tie(NULL),cout.tie(NULL)
+void mahakal(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt","r",stdin);
+	freopen("output.txt","w",stdout);
+	freopen("error.txt","w",stderr);
+	#endif
+}
+
+int main(){
+	mahakal();fast;
+
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n , m;
+		cin>>n>>m;
+		vector<ll> vec1 , vec2;
+		for(ll i=0;i<n ;i++){
+			string str;
+			map<char, ll> mp;
+			cin>>str;
+			for(ll j=0;j<str.length();j++){
+				mp[str[j]]++;
+			}
+			auto x=*mp.begin();
+			vec1.pb(x.s);
+		}
+		for(ll i=0;i<m ;i++){
+			string str;
+			map<char, ll> mp;
+			cin>>str;
+			for(ll j=0;j<str.length();j++){
+				mp[str[j]]++;
+			}
+			auto x=*mp.begin();
+			vec2.pb(x.s);
+		}
+		sort(vec1.begin(),vec1.end());
+		for(ll i=0;i<m;i++){
+			ll ans=lower_bound(vec1.begin(),vec1.end(),vec2[i])-vec1.begin();
+			cout<<ans<<" ";
+		}
+	}
+
+	return 0;
+}
