@@ -1,0 +1,60 @@
+// https://www.geeksforgeeks.org/check-if-it-is-possible-to-form-string-b-from-a-under-the-given-constraints/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define inf 100000000000000000
+#define ll long long int
+#define pb push_back
+#define f first
+#define s second
+#define mod 1000000007
+#define fast ios_base::sync_with_stdio(false),cin.tie(NULL),cout.tie(NULL)
+void mahakal(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt","r",stdin);
+	freopen("output.txt","w",stdout);
+	freopen("error.txt","w",stderr);
+	#endif
+}
+
+ll solve(string str1 , string str2 , ll b , ll m){
+	vector<ll> vec[26];
+	for(ll i=0;i<str1.size();i++){
+		vec[str1[i]-'a'].pb(i);
+	}
+	ll low=0;
+	vector<ll> box(str1.length()+1,0);
+	for(ll i=0;i<str2.length();i++){
+		auto it=lower_bound(vec[str2[i]-'a'].begin(),vec[str2[i]-'a'].end(),low);
+		if(it==vec[str2[i]-'a'].end()){
+			return 0;
+		}
+		ll block=(*it)/b;
+		box[block]++;
+		if(box[block]>=m){
+			low=(block+1)*b;
+		}
+		else {
+			low=(*it)+1;
+		}
+	}
+	return true;
+}
+
+int main(){
+	mahakal();fast;
+
+	ll t;
+	cin>>t;
+	while(t--){
+		string str , str1;
+		cin>>str>>str1;
+		ll b , m;
+		cin>>b>>m;
+		ll ans=solve(str , str1 , b , m);
+		cout<<ans<<endl;
+	}
+
+	return 0;
+}
